@@ -115,6 +115,28 @@ func TestParserValidJson(t *testing.T) {
 	assert.Equal(t, noita, 1)
 	assert.Equal(t, smash, 2)
 
+	// Test 2 nested arrays
+	result, _ = runParserWithStr(`{ "a": [[1,11],[2,22]] }`)
+	arrays, _ := result.GetArray("a")
+	nestedArr1, _ := arrays[0].GetArray("")
+	nestedArr2, _ := arrays[1].GetArray("")
+	val1, _  := nestedArr1[0].GetInt("")
+	val11, _ := nestedArr1[1].GetInt("")
+	val2, _  := nestedArr2[0].GetInt("")
+	val22, _ := nestedArr2[1].GetInt("")
+	assert.Equal(t, val1, 1)
+	assert.Equal(t, val11, 11)
+	assert.Equal(t, val2, 2)
+	assert.Equal(t, val22, 22)
+
+	// TODO: Test 3 nested arrays
+	// result, _ = runParserWithStr(`{ "a": ["b": ["c": 123]] }`)
+	// arrA, _ := result.GetArray("a")
+	// arrB, _ := arrA[0].GetArray("b")
+	// valC, _ := arrB[0].GetInt("c")
+	// // assert.Equal(t, valC, 123)
+	// fmt.Printf("WWWWWWWWWW %d\n", valC)
+
 	// Test JSON with all field types
 	result, _ = runParserWithStr(`{
 		"str": "string",

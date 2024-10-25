@@ -164,7 +164,7 @@ func (p *Parser) parseObject() (map[string]any, error) {
 	return result, errors.New(msg)
 }
 
-// TODO
+// Parses & returns next tokens as an array. May recurse on next values much like other parsing funcs.
 func (p *Parser) parseArray() ([]any, error) {
 	var result []any
 
